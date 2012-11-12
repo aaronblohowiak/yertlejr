@@ -1,0 +1,14 @@
+Yertle := $(Definition) EOF
+Definition := Name ' := ' Description Newline
+Description := Choice / Sequence / Atom
+Choice := Atom $(' / ' Atom)
+Sequence := Atom $(' ' Atom)
+Atom := Optional / Repitition / Negation / Precedence / StringLiteral / Name
+Optional := '[' Description ']'
+Repitition := '$(' Description ')'
+Negation := '^(' Description ')'
+Precedence := '(' Description ')'
+Name := $(^(Punctuation / Whitespace))
+StringLiteral := '\'' $(('\\' Any) / ^('\'')) '\''
+Newline := '
+'

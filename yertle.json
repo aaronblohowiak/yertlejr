@@ -1,0 +1,66 @@
+[
+	{"name":"Yertle","kind":"Sequence","matching":[
+		{"name":null, "kind": "Repitition","matching":
+			{"name":null,"kind":"ByName","matching":"Definition"}},
+		{"name":null, "kind":"ByName", "matching":"EOF"}]},
+	{"name":"Name","kind":"Repitition","matching":
+		{"name":null,"kind":"Negation","matching":
+			{"name":null,"kind":"Alternation","matching":[
+				{"name":null,"kind":"ByName","matching":"Punctuation"},
+				{"name":null,"kind":"ByName","matching":"Whitespace"}]}}},
+	{"name":"Definition","kind":"Sequence","matching":[
+		{"name":null,"kind":"ByName","matching":"Name"},
+		{"name":null,"kind":"Literal","matching":" := "},
+		{"name":null,"kind":"ByName","matching":"Description"},
+		{"name":null,"kind":"ByName","matching":"Newline"}]},
+	{"name":"Description","kind":"Alternation","matching":[
+		{"name":null,"kind":"ByName","matching":"Choice"},
+		{"name":null,"kind":"ByName","matching":"Sequence"},
+		{"name":null,"kind":"ByName","matching":"Atom"}]},
+	{"name":"Atom","kind":"Alternation","matching":[
+		{"name":null,"kind":"ByName","matching":"Optional"},
+		{"name":null,"kind":"ByName","matching":"Repitition"},
+		{"name":null,"kind":"ByName","matching":"Negation"},
+		{"name":null,"kind":"ByName","matching":"Precedence"},
+		{"name":null,"kind":"ByName","matching":"StringLiteral"},
+		{"name":null,"kind":"ByName","matching":"Name"}]},
+	{"name":"StringLiteral","kind":"Sequence","matching":[
+		{"name":null,"kind":"Literal","matching":"'"},
+		{"name":null,"kind":"Repitition","matching":
+			{"name":null,"kind":"Alternation","matching":[
+				{"name":null,"kind":"Sequence","matching":[
+					{"name":null,"kind":"Literal","matching":"\\"},
+					{"name":null,"kind":"ByName","matching":"Any"}]},
+				{"name":null,"kind":"Negation","matching":
+					{"name":null,"kind":"Literal","matching":"'"}}]}},
+		{"name":null,"kind":"Literal","matching":"'"}]},
+	{"name":"Newline","kind":"Literal","matching":"\n"},
+	{"name":"Optional","kind":"Sequence","matching":[
+		{"name":null,"kind":"Literal","matching":"["},
+		{"name":null,"kind":"ByName","matching":"Description"},
+		{"name":null,"kind":"Literal","matching":"]"}]},
+	{"name":"Repitition","kind":"Sequence","matching":[
+		{"name":null,"kind":"Literal","matching":"$("},
+		{"name":null,"kind":"ByName","matching":"Description"},
+		{"name":null,"kind":"Literal","matching":")"}]},
+	{"name":"Negation","kind":"Sequence","matching":[
+		{"name":null,"kind":"Literal","matching":"^("},
+		{"name":null,"kind":"ByName","matching":"Description"},
+		{"name":null,"kind":"Literal","matching":")"}]},
+	{"name":"Precedence","kind":"Sequence","matching":[
+		{"name":null,"kind":"Literal","matching":"("},
+		{"name":null,"kind":"ByName","matching":"Description"},
+		{"name":null,"kind":"Literal","matching":")"}]},
+	{"name":"Choice","kind":"Sequence","matching":[
+		{"name":null,"kind":"ByName","matching":"Atom"},
+		{"name":null,"kind":"Repitition","matching":
+			{"name":null,"kind":"Sequence","matching":[
+				{"name":null,"kind":"Literal","matching":" / "},
+				{"name":null,"kind":"ByName","matching":"Atom"}]}}]},
+	{"name":"Sequence","kind":"Sequence","matching":[
+		{"name":null,"kind":"ByName","matching":"Atom"},
+		{"name":null,"kind":"Repitition","matching":
+			{"name":null,"kind":"Sequence","matching":[
+				{"name":null,"kind":"Literal","matching":" "},
+				{"name":null,"kind":"ByName","matching":"Atom"}]}}]}
+]
