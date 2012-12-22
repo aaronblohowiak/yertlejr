@@ -1,0 +1,7 @@
+EJS := $(Interpreted / Content) EOF
+Interpreted := Raw / Escaped / Evaluated
+Escaped := '<%= ' Code ' %>'
+Raw := '<%- ' Code ' %>'
+Evaluated := '<% ' Code ' %>'
+Code := $(^(' %>'))
+Content := $(^('<%= ' / '<% ' / EOF))

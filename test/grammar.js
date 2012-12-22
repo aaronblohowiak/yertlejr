@@ -11,7 +11,6 @@ json = JSON.parse(fs.readFileSync("./yertle.json", "utf-8"));
 	var str = 'Foo := Bar\n';
 	assert(context.namedMatchers["Yertle"].match(str, 0).status);
 
-
 	str = "Definition := Name ' := ' Description Newline\n";
 	assert(context.namedMatchers["Yertle"].match(str, 0).status);
 

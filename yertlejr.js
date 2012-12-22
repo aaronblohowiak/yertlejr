@@ -7,7 +7,7 @@ Yertle.Context = function(){
 	var result = {
 		namedMatchers: {},
 		match: function(rule, source, position){
-			ByName.init(rule, null, this).match(source, position);
+			return Yertle.Matchers.ByName.init(rule, null, this).match(source, position);
 		}
 	};
 
@@ -22,7 +22,7 @@ Yertle.Context = function(){
 
 		Yertle.Matchers.Alternation.init(char_matcher_array, name, result)
 	}
-	
+
 
 	//Three builtin matchers.
 	//	Punctuation
@@ -89,15 +89,22 @@ Matcher = {
 	match: function match(source, position){
 		var result;
 
-		if(this.full_log && position >= this.log_start){
-			console.log("attempting: "+this.name);
+		if(this.context && this.context.full_log && position >= this.context.log_start){
+			this.context.match_level  || (this.context.match_level = 0);
+			this.context.match_level += 1;
+			var str = '';
+			for (var i = this.context.match_level - 1; i >= 0; i--) {
+				str += ' ';
+			};
+			console.log(str + "attempting: "+(this.name||this.kind) + " at: " + position);
 
 			result = this.perform_match(source, position)
 
 			if(result && result.status)
-				console.log("match succeeded "+this.name+" "+position+" ", result);
+				console.log(str + "match succeeded "+(this.name||this.kind)+" "+position+" ", result);
 			else
-				console.log("match failed "+this.name+" "+position+" ", result);
+				console.log(str + "match failed "+(this.name||this.kind)+" "+position+" ", result);
+			this.context.match_level -= 1;
 		}else{
 			result = this.perform_match(source, position);
 		}
@@ -198,7 +205,7 @@ matchers.Repitition.perform_match = function(source, position, matchState){
 		original_position = position;
 			
 		while((result=child_matcher.match(source, position)).status && position <= (source.length + 1)){
-				matches.push(result)
+				matches.push(result);
 				length += result.length;
 				position += result.length;
 		}
