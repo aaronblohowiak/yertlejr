@@ -1,6 +1,7 @@
 ## Yertle is:
 
-A library of text matching primitives
+A library of text matching primitives:
+
 	* De/Serializable from/to JSON
 	* Robust enough to implement Pure Regular Expressions
 	* match results contain source location information
